@@ -136,6 +136,14 @@
                 "docker-credentials-uri": {
                     "description": "An optional URI to be fetched and extracted that contains docker credentials (e.g. file:///etc/docker/docker.tar.gz).",
                     "type": "string"
+                },
+                "jenkins-admin-name": {
+                    "description": "The default admin's name on the Jenkins Master.",
+                    "type": "string"
+                },
+                "jenkins-admin-password": {
+                    "description": "The default admin's password on the Jenkins Master.",
+                    "type": "string"
                 }
             }
         }
