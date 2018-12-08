@@ -7,7 +7,7 @@
     "assets": {
       "container": {
         "docker": {
-          "jenkins": "amiditex/jenkins-dev:4983a24de5b04e889062b06acb5554237522d56a"
+          "jenkins": "amiditex/jenkins-dev:877eb74d04288e4438fd7890c20de00487695fc4"
         }
       }
     }

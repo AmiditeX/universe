@@ -66,10 +66,10 @@
    "acceptedResourceRoles": [ "{{roles.jenkins-master-role}}" ],
    "healthChecks": [
     {
-      "path": "/service/{{service.name}}",
+      "path": "/jenkins",
       "portIndex": 0,
-      "protocol": "HTTP",
-      "gracePeriodSeconds": 30,
+      "protocol": "MESOS_HTTP",
+      "gracePeriodSeconds": 300,
       "intervalSeconds": 60,
       "timeoutSeconds": 20,
       "maxConsecutiveFailures": 10
@@ -80,12 +80,11 @@
     "HAPROXY_GROUP":"external",
     "HAPROXY_0_VHOST":"{{networking.virtual-host}}",
     "HAPROXY_0_REDIRECT_TO_HTTPS": "{{networking.https-redirect}}",
+    "HAPROXY_0_ENABLED": "true",
+    "HAPROXY_0_PATH": "/jenkins",
     {{/networking.virtual-host}}
     "MARATHON_SINGLE_INSTANCE_APP": "true",
-    "DCOS_PACKAGE_FRAMEWORK_NAME": "{{service.name}}",
-    "DCOS_SERVICE_NAME": "{{service.name}}",
-    "DCOS_SERVICE_PORT_INDEX": "0",
-    "DCOS_SERVICE_SCHEME": "http"
+    "DCOS_PACKAGE_FRAMEWORK_NAME": "{{service.name}}"
   },
   "upgradeStrategy":{
     "minimumHealthCapacity": 0,

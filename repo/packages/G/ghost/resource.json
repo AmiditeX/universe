@@ -1,0 +1,15 @@
+{
+    "images": {
+      "icon-small": "http://ghost.org/favicon.png",
+      "icon-medium": "http://ghost.org/favicon.png",
+      "icon-large": "http://ghost.org/favicon.png"
+    },
+    "assets": {
+      "container": {
+        "docker": {
+          "ghost": "bitnami/ghost:latest"
+        }
+      }
+    }
+}
+

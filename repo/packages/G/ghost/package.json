@@ -1,0 +1,22 @@
+{
+    "packagingVersion": "5.0",
+    "name": "ghost",
+    "version": "1.0",
+    "minDcosReleaseVersion": "1.12",
+    "scm": "https://github.com/bitnami/bitnami-docker-ghost",
+    "maintainer": "support@blueci.io",
+    "website": "ghost.org",
+    "framework": true,
+    "description": "Ghost blogging package for DC/OS Mesosphere. Host your own Ghost publication system on your cluster.",
+    "tags": ["publication", "blog", "ghost"],
+    "preInstallNotes": "Don't forget to setup a database for your Ghost or no data will be persistent.",
+    "postInstallNotes": "Ghost has been installed.",
+    "postUninstallNotes": "Ghost has been uninstalled.",
+    "licenses": [
+      {
+        "name": "Apache License Version 2.0",
+        "url": "https://github.com/mesosphere/dcos-jenkins-service/blob/master/LICENSE"
+      }
+    ],
+    "selected": true
+}

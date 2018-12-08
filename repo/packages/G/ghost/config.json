@@ -1,0 +1,163 @@
+{
+    "type": "object",
+    "properties": {
+        "service": {
+            "description": "Configuration properties for the Ghost service on DC/OS.",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "The name of the service to display in the DC/OS dashboard.",
+                    "type": "string",
+                    "default": "ghost"
+                },
+                "cpus": {
+                    "description": "CPU shares to allocate to Ghost.",
+                    "type": "number",
+                    "default": 0.1,
+                    "minimum": 0.1
+                },
+                "mem": {
+                    "description": "Memory (in MB) to allocate to Ghost.",
+                    "type": "number",
+                    "default": 512.0,
+                    "minimum": 256.0
+                }
+            },
+            "required": [
+                "name",
+                "cpus",
+                "mem"
+            ]
+        },
+        "ghost": {
+            "description": "Main configuration for Ghost.",
+            "type": "object",
+            "properties": {
+                "ghost-user": {
+                    "description": "The admin account name.",
+                    "type": "string",
+                    "default": "ghost"
+                },
+                "ghost-password": {
+                    "description": "The admin account password.",
+                    "type": "string",
+                    "default": ""
+                },
+                "ghost-title": {
+                    "description": "The title of the blog.",
+                    "type": "string",
+                    "default": "Ghost DC/OS Blog"
+                }
+            },
+            "required": [
+                "ghost-user",
+                "ghost-password",
+                "ghost-title"
+            ]
+        },
+        "networking": {
+            "description": "Networking-related configuration properties Ghost on DC/OS.",
+            "type": "object",
+            "properties": {
+                "ghost-hostname": {
+                    "description": "Ghost's webserver hostname.",
+                    "type": "string",
+                    "default": ""
+                },
+                "ghost-port": {
+                    "description": "Ghost's webserver listening port.",
+                    "type": "integer",
+                    "default": 80
+                },
+                "virtual-host": {
+                    "description": "The virtual host address to configure for integration with Marathon-lb.",
+                    "type": "string"
+                },
+                "https-redirect": {
+                    "description": "Whether Marathon-lb should redirect HTTP traffic to HTTPS. This requires 'virtual-host' to be set. By default, this is false.",
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "required": [
+                "ghost-hostname",
+                "ghost-port"
+            ]
+        },
+        "database": {
+            "description": "Database configuration properties for Ghost on DC/OS.",
+            "type": "object",
+            "properties": {
+                "mariadb-host": {
+                    "description": "The hostname/IP of the MariaDB database.",
+                    "type": "string",
+                    "default": ""
+                },
+                "mariadb-port": {
+                    "description": "The port number of the MariaDB database.",
+                    "type": "number",
+                    "default": 3306
+                },
+                "ghost-db-name": {
+                    "description": "The Ghost database name on the MariaDB database.",
+                    "type": "string",
+                    "default": ""
+                },
+                "ghost-db-user": {
+                    "description": "The Ghost user on the Ghost database.",
+                    "type": "string",
+                    "default": ""
+                },
+                "ghost-db-password": {
+                    "description": "The Ghost user password on the Ghost database.",
+                    "type": "string",
+                    "default": ""
+                }
+            },
+            "required": [
+                "mariadb-host",
+                "mariadb-port",
+                "ghost-db-name",
+                "ghost-db-user",
+                "ghost-db-password"
+            ]
+        },
+        "email": {
+            "description": "Email configuration for Ghost on DC/OS.",
+            "type": "object",
+            "properties": {
+                "ghost-email": {
+                    "description": "The default email for Ghost.",
+                    "type": "string",
+                    "default": ""
+                },
+                "smtp-host": {
+                    "description": "The SMTP hostname to be used by Ghost",
+                    "type": "string",
+                    "default": ""
+                },
+                "smtp-port": {
+                    "description": "The SMTP port to be used by Ghost",
+                    "type": "number",
+                    "default": 25
+                },
+                "smtp-user": {
+                    "description": "The SMTP user to be used by Ghost",
+                    "type": "string",
+                    "default": ""
+                },
+                "smtp-password": {
+                    "description": "The SMTP password to be used by Ghost",
+                    "type": "string",
+                    "default": ""
+                },
+                "smtp-service": {
+                    "description": "The SMTP service to be used by Ghost",
+                    "type": "string",
+                    "default": ""
+                }
+            }
+        }
+    }
+}
+
