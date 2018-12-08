@@ -1,0 +1,13 @@
+{
+  "packagingVersion": "4.0",
+  "name": "landingpage",
+  "version": "1.0",
+  "tags": ["mesosphere", "framework"],
+  "maintainer": "help@bar.io",
+  "description": "Does baz.",
+  "scm": "https://github.com/bar/foo.git",
+  "website": "http://bar.io/foo",
+  "framework": true,
+  "postInstallNotes": "Have fun foo-ing and baz-ing!"
+}
+

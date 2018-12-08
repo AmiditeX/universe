@@ -1,0 +1,15 @@
+{
+  "images": {
+    "icon-small": "http://some.org/foo/small.png",
+    "icon-medium": "http://some.org/foo/medium.png",
+    "icon-large": "http://some.org/foo/large.png"
+  },
+  "assets": {
+    "container": {
+      "docker": {
+        "image": "rgues/nginxlandingpage:latest"
+      }
+    }
+  }
+}
+
