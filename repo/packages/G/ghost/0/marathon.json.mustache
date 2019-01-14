@@ -1,0 +1,64 @@
+{
+  "id": "{{service.name}}",
+  "cpus": {{service.cpus}},
+  "mem": {{service.mem}},
+  "instances": 1,
+  "env": {
+      "NODE_ENV": "production",
+      "url": "{{networking.ghost-hostname}}",
+      "server__port": "{{networking.ghost-port}}",
+      "mail__transport": "SMTP",
+      "mail__from": "{{email.ghost-email}}",
+      "mail__options__host": "{{email.smtp-host}}",
+      "mail__options__port": "{{email.smtp-port}}",
+      "mail__options__auth__user": "{{email.smtp-user}}",
+      "mail__options__auth__pass": "{{email.smtp-password}}",
+      "database__client": "mysql",
+      "database__connection__host": "{{database.mariadb-host}}",
+      "database__connection__port": "{{database.mariadb-port}}",
+      "database__connection__database": "{{database.ghost-db-name}}",
+      "database__connection__user": "{{database.ghost-db-user}}",
+      "database__connection__password": "{{database.ghost-db-password}}"
+  },
+  "container": {
+      {{#storage.host-volume}}
+      "volumes": [
+          {
+             "containerPath": "/var/lib/ghost/content",
+              "hostPath": "{{storage.host-volume}}/ghost/{{service.name}}",
+              "mode": "RW"
+          }
+      ],
+      {{/storage.host-volume}}
+      "type": "DOCKER",
+      "docker": {
+          "image": "{{resource.assets.container.docker.ghost}}",
+          "forcePullImage": true,
+          "network": "BRIDGE",
+          "portMappings": [
+              { "containerPort": {{networking.ghost-port}}, "hostPort": 0, "name": "ghost" }
+          ]
+      }
+  },
+  "acceptedResourceRoles": [ "*" ],
+  "healthChecks": [
+      {
+          "path": "/",
+          "portIndex": 0,
+          "protocol": "MESOS_HTTP",
+          "gracePeriodSeconds": 30,
+          "intervalSeconds": 60,
+          "timeoutSeconds": 20,
+          "maxConsecutiveFailures": 3
+     }
+  ],
+  "labels": {
+    {{#networking.virtual-host}}
+    "HAPROXY_GROUP":"external",
+    "HAPROXY_0_VHOST":"{{networking.virtual-host}}",
+    "HAPROXY_0_REDIRECT_TO_HTTPS": "{{networking.https-redirect}}",
+    "HAPROXY_0_ENABLED": "true"
+    {{/networking.virtual-host}}
+  }
+}
+

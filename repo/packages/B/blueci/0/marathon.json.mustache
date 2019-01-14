@@ -24,13 +24,14 @@
       "JENKINS_CONTEXT": "/service/{{service.name}}",
       "JENKINS_MESOS_MASTER": "{{advanced.mesos-master}}",
       {{#networking.virtual-host}}
-      "JENKINS_ROOT_URL": "{{#networking.https-redirect}}https://{{/networking.https-redirect}}{{^networking.https-redirect}}http://{{/networking.https-redirect}}{{networking.virtual-host}}/service/{{service.name}}",
+      "JENKINS_ROOT_URL": "{{#networking.https-redirect}}https://{{/networking.https-redirect}}{{^networking.https-redirect}}http://{{/networking.https-redirect}}{{networking.main-virtual-host}}{{networking.jenkins-proxy-url}}",
       {{/networking.virtual-host}}
       "JVM_OPTS": "{{advanced.jvm-opts}}",
       "JENKINS_OPTS": "{{advanced.jenkins-opts}}",
       "SSH_KNOWN_HOSTS": "{{networking.known-hosts}}",
       "JENKINS_ADMIN_NAME": "{{advanced.jenkins-admin-name}}",
-      "JENKINS_ADMIN_PASSWORD": "{{advanced.jenkins-admin-password}}"
+      "JENKINS_ADMIN_PASSWORD": "{{advanced.jenkins-admin-password}}",
+      "JENKINS_PREFIX_URL": "{{networking.jenkins-proxy-url}}"
   },
   "portDefinitions": [
       {"port": 0, "protocol": "tcp", "name": "nginx"},
@@ -50,7 +51,7 @@
        "volumes": [
            {
                "containerPath": "/var/jenkins_home",
-               "hostPath": "{{storage.host-volume}}/{{service.name}}",
+               "hostPath": "{{storage.host-volume}}/jnks/{{service.name}}",
                "mode": "RW"
            }
        ]
@@ -66,22 +67,21 @@
    "acceptedResourceRoles": [ "{{roles.jenkins-master-role}}" ],
    "healthChecks": [
     {
-      "path": "/jenkins",
-      "portIndex": 0,
-      "protocol": "MESOS_HTTP",
+      "portIndex": 1,
+      "protocol": "MESOS_TCP",
       "gracePeriodSeconds": 300,
       "intervalSeconds": 60,
       "timeoutSeconds": 20,
-      "maxConsecutiveFailures": 10
+      "maxConsecutiveFailures": 5
     }
   ],
   "labels": {
     {{#networking.virtual-host}}
     "HAPROXY_GROUP":"external",
-    "HAPROXY_0_VHOST":"{{networking.virtual-host}}",
-    "HAPROXY_0_REDIRECT_TO_HTTPS": "{{networking.https-redirect}}",
-    "HAPROXY_0_ENABLED": "true",
-    "HAPROXY_0_PATH": "/jenkins",
+    "HAPROXY_1_ENABLED": "true",
+    "HAPROXY_1_VHOST":"{{networking.virtual-host}}",
+    "HAPROXY_1_PATH": "{{networking.jenkins-proxy-url}}",
+    "HAPROXY_1_REDIRECT_TO_HTTPS": "{{networking.https-redirect}}",
     {{/networking.virtual-host}}
     "MARATHON_SINGLE_INSTANCE_APP": "true",
     "DCOS_PACKAGE_FRAMEWORK_NAME": "{{service.name}}"

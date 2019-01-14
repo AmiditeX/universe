@@ -63,8 +63,16 @@
                     "type": "string",
                     "default": "github.com"
                 },
+                "main-virtual-host": {
+                    "description": "The main DNS used to access Jenkins. This value must be part of the virtual host list. This value is used to create the root URL of Jenkins.",
+                    "type": "string"
+                },
                 "virtual-host": {
-                    "description": "The virtual host address to configure for integration with Marathon-lb.",
+                    "description": "The virtual host address to configure for integration with Marathon-LB. This can be a comma separated list.",
+                    "type": "string"
+                },
+                "jenkins-proxy-url": {
+                    "description": "The access path appended to the virtual host in Marathon-LB.",
                     "type": "string"
                 },
                 "https-redirect": {
